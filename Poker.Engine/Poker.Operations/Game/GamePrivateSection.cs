@@ -314,52 +314,66 @@ namespace Poker.Operations.Game
                 .OrderByDescending(x => x.CombinationStrength)
                 .ToList();
 
-            var alreadyPaid = 0;
-            foreach (var p in players)
-            {
-                if (p.MaxBank <= alreadyPaid)
-                {
-                    continue;
-                }
 
-                var player = FindPlayer(p.NickName);
-                player.Chips += p.MaxBank - alreadyPaid;
-                alreadyPaid = p.MaxBank;
-
-                if (alreadyPaid == bank)
-                {
-                    break;
-                }
-            }
+            // If we don't have equals strength of combinations.
+            //
             //var alreadyPaid = 0;
-            //foreach (var group in players.GroupBy(x => x.CombinationStrength).OrderByDescending(x => x.Key))
+            //foreach (var p in players)
             //{
-            //    var playersCount = group.Count();
-            //    var alreadyPaidToCurrentGroup = 0;
-
-            //    foreach (var p in group)
+            //    if (p.MaxBank <= alreadyPaid)
             //    {
-            //        if (p.MaxBank <= alreadyPaid)
-            //        {
-            //            continue;
-            //        }
-            //        // 2  2  2 1  3
-            //        // 15 20 5 10 30
-            //        // 0 0 0   45
-            //        // 70 maxToPayForGroup (maxToPayToPlayerFromGroupWithMaxChips)
-            //        // 70 - 45 = 25. (45 - Already pay)
-            //        // 
-            //        var chipsToPay = 
-            //        var player = FindPlayer(p.NickName);
-            //        player.Chips += p.MaxBank - alreadyPaid;
-            //        alreadyPaid = p.MaxBank;
+            //        continue;
             //    }
+
+            //    var player = FindPlayer(p.NickName);
+            //    player.Chips += p.MaxBank - alreadyPaid;
+            //    alreadyPaid = p.MaxBank;
 
             //    if (alreadyPaid == bank)
             //    {
             //        break;
             //    }
             //}
+
+
+            // We need divide chips if have equals strength of combinations.
+            //
+            // 28 24
+            // 2  2  2 1  3
+            // 18 20 5 10 30 // 83
+            // 12 16 0 45 10
+
+            var alreadyPaid = 0;
+            foreach (var group in players.GroupBy(x => x.CombinationStrength).OrderByDescending(x => x.Key).ToList())
+            { 
+                var orderedGroup = group.ToList();
+                while (orderedGroup.Any())
+                {
+                    var minMaxBank = orderedGroup.Min(x => x.MaxBank);
+                    if (minMaxBank <= alreadyPaid)
+                    {
+                        orderedGroup.RemoveAll(x => x.MaxBank <= minMaxBank);
+                        continue;
+                    }
+
+                    var toPay = (minMaxBank - alreadyPaid) / orderedGroup.Count; // accuracy may be lost here
+
+                    orderedGroup.ForEach(x =>
+                    {
+                        var player = FindPlayer(x.NickName);
+                        player.Chips += toPay;
+                    });
+
+                    orderedGroup.RemoveAll(x => x.MaxBank <= minMaxBank);
+
+                    alreadyPaid = minMaxBank;
+                }
+
+                if (alreadyPaid == bank)
+                {
+                    break;
+                }
+            }
 
             return new GameResult
             {
