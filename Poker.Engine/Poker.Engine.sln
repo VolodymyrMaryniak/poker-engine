@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poker.Operations", "Poker.Operations\Poker.Operations.csproj", "{42081986-DF0D-4A63-8B29-7B302DFDEF74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poker.Models", "Poker.Models\Poker.Models.csproj", "{D4EA14CE-E929-4A92-85C5-C6F832627AE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42081986-DF0D-4A63-8B29-7B302DFDEF74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42081986-DF0D-4A63-8B29-7B302DFDEF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42081986-DF0D-4A63-8B29-7B302DFDEF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42081986-DF0D-4A63-8B29-7B302DFDEF74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4EA14CE-E929-4A92-85C5-C6F832627AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4EA14CE-E929-4A92-85C5-C6F832627AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4EA14CE-E929-4A92-85C5-C6F832627AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4EA14CE-E929-4A92-85C5-C6F832627AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {281026B1-46FB-420F-B318-1A69677C90EE}
+	EndGlobalSection
+EndGlobal
